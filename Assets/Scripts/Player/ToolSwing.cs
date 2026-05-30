@@ -76,8 +76,11 @@ public class ToolSwing : MonoBehaviour
 
         // Only swing if a tool is held
         PlayerInventory inv = GetComponent<PlayerInventory>();
-        if (inv == null || inv.HeldItem == null || inv.HeldItem.toolName != "Axe" || inv.HeldItem.toolName != "Chainsaw")
+        if (inv == null || inv.HeldItem == null || inv.HeldItem.toolName != "Axe" && inv.HeldItem.toolName != "Chainsaw")
+        {
+            Debug.Log("[ToolSwing] Axe not found - cannot begin swing");
             return;
+        }
 
         if (!stamina.TryConsume()) return;
 
