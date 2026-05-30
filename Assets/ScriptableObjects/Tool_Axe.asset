@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f532bc2e631cc143a7737e82474ac5c, type: 3}
   m_Name: Tool_Axe
   m_EditorClassIdentifier: 
-  toolName: Basic Axe
+  toolName: Axe
   icon: {fileID: 21300000, guid: 7c2540cf9a1a572498dd313b70f0f3fa, type: 3}
   prefab: {fileID: 2170922897339569166, guid: cd1eb9b2249f3374ba1f309a28056986, type: 3}
-  storageSlotIndex: 1
+  storageSlotIndex: 0

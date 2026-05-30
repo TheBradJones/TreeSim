@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f532bc2e631cc143a7737e82474ac5c, type: 3}
   m_Name: Tool_Hammer
   m_EditorClassIdentifier: 
-  toolName: Basic Hammer
+  toolName: Hammer
   icon: {fileID: 21300000, guid: 7c2540cf9a1a572498dd313b70f0f3fa, type: 3}
   prefab: {fileID: 4431699004597453490, guid: c0f3e5ba93aac964e83e60b32c68b93e, type: 3}
-  storageSlotIndex: 2
+  storageSlotIndex: 1

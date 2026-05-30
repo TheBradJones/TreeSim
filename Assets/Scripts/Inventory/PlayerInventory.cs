@@ -189,13 +189,10 @@ public class PlayerInventory : MonoBehaviour
     //                      Slot selection helpers
     // ---------------------------------------------------------------
 
-    // Retuurns the best slot for the incoming item:
-    // 1. the slot pre-assigned by the tool's storageSlotIndex (if empty).
-    // 2. The current selected slot (if empty).
-    // 3. The first empty slot.
-    // 4. -1 if no slot is available.
     private int FindBestSlot(ToolItem item)
     {
+        /*  This code made it so each item has a specific slot regardless of in which order it was picked up
+        
         // Prefer the tools designated hotbar position
         int preferred = item.storageSlotIndex;
         if (preferred >= 0 && preferred < slotCount && slots[preferred] == null)
@@ -206,6 +203,11 @@ public class PlayerInventory : MonoBehaviour
             return selectedSlot;
 
         // Fall back to first empty
+        for (int i = 0; i < slotCount; i++)
+            if (slots[i] == null) return i;
+
+        */
+
         for (int i = 0; i < slotCount; i++)
             if (slots[i] == null) return i;
 
