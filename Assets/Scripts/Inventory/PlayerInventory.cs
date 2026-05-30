@@ -10,7 +10,7 @@ public class PlayerInventory : MonoBehaviour
     [Header("Toolbelt")]
     [Range(1, 5)] public int slotCount = 5;
 
-    [Header("Jamd / Equip Point")]
+    [Header("Hand / Equip Point")]
     public Transform handPoint;
 
     [Header("Events")]
