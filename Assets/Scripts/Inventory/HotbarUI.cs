@@ -56,9 +56,15 @@ public class HotbarUI : MonoBehaviour
     {
         for (int i = 0; i < slotRoots.Length; i++)
         {
+            // Background Color
             Image bg = slotRoots[i].GetComponent<Image>();
             if (bg != null)
                 bg.color = (i == selected) ? selectedColor : normalColor;
+
+            // Label Visibility
+            Transform labelTrans = slotRoots[i].transform.Find("Label");
+            if (labelTrans != null)
+                labelTrans.gameObject.SetActive(i == selected);
         }
     }
 
