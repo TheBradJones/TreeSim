@@ -68,7 +68,7 @@ public class StorageSlot : MonoBehaviour
     // ---------------------------------------------------------------
 
     // Called by the players interaction system (see PlayerInteraction.cs)
-    public void OnpPlayerInteract(PlayerInventory inventory)
+    public void OnPlayerInteract(PlayerInventory inventory)
     {
         if (hasItem)
         {
