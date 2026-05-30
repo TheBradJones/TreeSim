@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Basic Sledgehammer
   icon: {fileID: 21300000, guid: 7c2540cf9a1a572498dd313b70f0f3fa, type: 3}
-  prefab: {fileID: 5322079538593102103, guid: 87de988f3cf334344a077e4e1fbc3a11, type: 3}
+  prefab: {fileID: 474796946762002934, guid: 87de988f3cf334344a077e4e1fbc3a11, type: 3}
   storageSlotIndex: 3

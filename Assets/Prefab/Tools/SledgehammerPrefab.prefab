@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5322079538593102103
+--- !u!1 &474796946762002934
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8816730674699391050}
-  - component: {fileID: 9145399803778358689}
-  - component: {fileID: 7590791511558183113}
-  - component: {fileID: 6043677318274053263}
-  - component: {fileID: 6488498625960801031}
-  - component: {fileID: 5067659207894867578}
+  - component: {fileID: 301312562585963251}
+  - component: {fileID: 6007849688330686254}
+  - component: {fileID: 2300423574792484113}
+  - component: {fileID: 5375361618480641451}
+  - component: {fileID: 8836175069645741072}
+  - component: {fileID: 7316581669960366772}
   m_Layer: 0
   m_Name: SledgehammerPrefab
   m_TagString: Untagged
@@ -21,28 +21,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8816730674699391050
+--- !u!4 &301312562585963251
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322079538593102103}
+  m_GameObject: {fileID: 474796946762002934}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1418488, y: 0.69094676, z: 2.8870535}
-  m_LocalScale: {x: 0.81713, y: 1, z: 0.85502}
+  m_LocalScale: {x: 0.62212193, y: 0.76135, z: 0.65096945}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9145399803778358689
+--- !u!114 &6007849688330686254
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322079538593102103}
+  m_GameObject: {fileID: 474796946762002934}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
@@ -973,13 +973,13 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &7590791511558183113
+--- !u!114 &2300423574792484113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322079538593102103}
+  m_GameObject: {fileID: 474796946762002934}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ca002da428252441b92f28d83c8a65f, type: 3}
@@ -997,13 +997,13 @@ MonoBehaviour:
     - rid: 8073411096752685269
       type: {class: Cube, ns: UnityEngine.ProBuilder.Shapes, asm: Unity.ProBuilder}
       data: 
---- !u!23 &6043677318274053263
+--- !u!23 &5375361618480641451
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322079538593102103}
+  m_GameObject: {fileID: 474796946762002934}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -1042,21 +1042,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &6488498625960801031
+--- !u!33 &8836175069645741072
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322079538593102103}
+  m_GameObject: {fileID: 474796946762002934}
   m_Mesh: {fileID: 0}
---- !u!64 &5067659207894867578
+--- !u!64 &7316581669960366772
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322079538593102103}
+  m_GameObject: {fileID: 474796946762002934}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
