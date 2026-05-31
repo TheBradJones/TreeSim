@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7004782124264012001}
   - component: {fileID: 1015533332515465306}
+  - component: {fileID: 7675461961762849940}
   m_Layer: 0
   m_Name: Axe Slot
   m_TagString: Untagged
@@ -46,6 +47,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: bb034b4c1f7043045a712f36f84c90d2, type: 2}
   snapPoint: {fileID: 7004782124264012001}
+--- !u!65 &7675461961762849940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186104726741653408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5756335, y: 0.736881, z: 1.6464002}
+  m_Center: {x: -0.21218324, y: 0.4894923, z: -0.7162076}
 --- !u!1 &346923200803197575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,6 +1315,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5514330623960524497}
   - component: {fileID: 1001364112885299266}
+  - component: {fileID: 332488381452410829}
   m_Layer: 0
   m_Name: Sledge Slot
   m_TagString: Untagged
@@ -1329,6 +1352,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: d829bc6df9fb6ce45a83f7d75b03aba6, type: 2}
   snapPoint: {fileID: 5514330623960524497}
+--- !u!65 &332488381452410829
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1976280223574098911}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.46564913, y: 0.8596952, z: 2.4386985}
+  m_Center: {x: 0.05786538, y: -0.0701524, z: 0.46719706}
 --- !u!1 &2702274295752949668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,6 +3751,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2716248242615408956}
   - component: {fileID: 8229308429886311258}
+  - component: {fileID: 4492575429577838581}
   m_Layer: 0
   m_Name: Hammer Slot
   m_TagString: Untagged
@@ -3743,6 +3788,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: a84137849b4d3b14b899170024822654, type: 2}
   snapPoint: {fileID: 2716248242615408956}
+--- !u!65 &4492575429577838581
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7432737219714004251}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.22976637, y: 0.9188347, z: 1}
+  m_Center: {x: -0.6184695, y: 1.1805826, z: -1.5799999}
 --- !u!1 &9098569350824777988
 GameObject:
   m_ObjectHideFlags: 0

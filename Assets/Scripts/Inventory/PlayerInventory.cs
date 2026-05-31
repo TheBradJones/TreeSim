@@ -28,6 +28,9 @@ public class PlayerInventory : MonoBehaviour
     private int selectedSlot = 0;
     private float scrollAccum = 0f;
 
+    // Track whether hand models are suppressed (e.g. while carrying logs)
+    private bool handModelsVisible = true;
+
     // ---------------------------------------------------
     //                  Unity Lifecycle
     // ---------------------------------------------------
@@ -89,7 +92,10 @@ public class PlayerInventory : MonoBehaviour
 
         SetHandModelVisible(selectedSlot, false);
         selectedSlot = index;
-        SetHandModelVisible(selectedSlot, true);
+
+        // Only show new slot's model if hand models are not suppressed
+        if (handModelsVisible)
+            SetHandModelVisible(selectedSlot, true);
 
         onSlotChanged?.Invoke(selectedSlot);
     }
@@ -131,7 +137,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     // ---------------------------------------------------------------
-    // Return to storage (no dropping)
+    // Return to storage
     // ---------------------------------------------------------------
 
     // Returns item in given hotbar slot to its designated storage
@@ -167,7 +173,10 @@ public class PlayerInventory : MonoBehaviour
         if (item.prefab == null || handPoint == null) return;
 
         handModels[slot] = Instantiate(item.prefab, handPoint.position, handPoint.rotation, handPoint);
-        handModels[slot].SetActive(slot == selectedSlot);
+
+        // Respect current suppression state
+        bool shouldShow = (slot == selectedSlot) && handModelsVisible;
+        handModels[slot].SetActive(shouldShow);
     }
 
     private void DestroyHandModel(int slot)
@@ -183,6 +192,29 @@ public class PlayerInventory : MonoBehaviour
     {
         if (handModels[slot] != null)
             handModels[slot].SetActive(visible);
+    }    
+    
+    // ---------------------------------------------------------------
+    //              Log carry suppression (called by LogCarrySystem)
+    // ---------------------------------------------------------------
+
+    // Show or hide ALL hand models at once.
+    // Pass false when the player picks up logs, true when they put them all down
+    public void SetHandModelsVisible(bool visible)
+    {
+        handModelsVisible = visible;
+
+        for (int i = 0; i < slotCount; i++)
+        {
+            if (handModels[i] != null)
+            {
+                // Only the selected slow is ever visible when tools are shown
+                bool show = visible && (i == selectedSlot);
+                handModels[i].SetActive(show);
+            }
+        }
+
+        Debug.Log($"[PlayerInventory] Hand Models Visible: {visible}");
     }
 
     // ---------------------------------------------------------------

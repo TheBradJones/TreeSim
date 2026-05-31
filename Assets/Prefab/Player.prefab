@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 817736278010412430}
   - component: {fileID: 1061002444724702023}
   - component: {fileID: 6723435719895255488}
+  - component: {fileID: 2826594003037926608}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -310,6 +311,55 @@ MonoBehaviour:
   swingRotation: {x: 50, y: 0, z: 0}
   handPoint: {fileID: 8916339596549325508}
   playerCamera: {fileID: 8630865388227275348}
+--- !u!114 &2826594003037926608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5988330779294648832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09947a68049bd864db1510768c066492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLogs: 3
+  shoulderPoint: {fileID: 1120073145404174371}
+  logStackOffset: {x: 0, y: 0.08, z: 0}
+  dropOneKey: 103
+  holdDropTime: 1
+  logPrefab: {fileID: 1684777591488124644, guid: 09677c0263ff5a34d995d2c2efef4caf, type: 3}
+--- !u!1 &8295177469657950755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1120073145404174371}
+  m_Layer: 0
+  m_Name: shoulderPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1120073145404174371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8295177469657950755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.846, y: 0.28100002, z: 0.163}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6263446784440496446}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &9185961338277839537
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +393,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8916339596549325508}
+  - {fileID: 1120073145404174371}
   m_Father: {fileID: 3316007418532401506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &8630865388227275348

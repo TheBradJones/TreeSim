@@ -221,7 +221,7 @@ public class TreeChopping : MonoBehaviour, IHittable
         if (fullTreeMesh != null) 
             fullTreeMesh.SetActive(false);
 
-        yield return new WaitForSeconds(3f);    // Wait for fall to complete
+        yield return new WaitForSeconds(1f);    // Wait for fall to complete
 
         for (int i = 0; i < logSpawns.Length; i++)
         {

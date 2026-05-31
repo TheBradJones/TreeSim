@@ -1096,7 +1096,7 @@ MonoBehaviour:
   fullTreeMesh: {fileID: 9159942854360974161}
   stump: {fileID: 2984700646540987235}
   upper: {fileID: 4669179193270801531}
-  logPrefab: {fileID: 0}
+  logPrefab: {fileID: 1684777591488124644, guid: 09677c0263ff5a34d995d2c2efef4caf, type: 3}
   bleedToNeighbours: 1
 --- !u!65 &5648318766528565598
 BoxCollider:
@@ -1117,8 +1117,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2471781, y: 1.5147249, z: 1.2259216}
-  m_Center: {x: -0.079366684, y: 0.79171866, z: -0.08056259}
+  m_Size: {x: 1.2471781, y: 1.3390218, z: 1.2259216}
+  m_Center: {x: -0.079366684, y: 0.70386714, z: -0.08056259}
 --- !u!1 &5596533107478607437
 GameObject:
   m_ObjectHideFlags: 0
