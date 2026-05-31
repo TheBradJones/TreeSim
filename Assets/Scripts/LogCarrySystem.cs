@@ -29,7 +29,7 @@ public class LogCarrySystem : MonoBehaviour
 
     private PlayerInventory inventory;
     private readonly List<GameObject> shoulderModels = new List<GameObject>();
-    private int logCount = 0;
+    public int logCount = 0;
 
     private float holdTimer = 0f;
     private bool holdFired = false;
