@@ -2023,6 +2023,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2079184050255035783, guid: d6a7a85973e0ac14b8e458fcff7fb3bb, type: 3}
+      propertyPath: logPrefab
+      value: 
+      objectReference: {fileID: 1684777591488124644, guid: 09677c0263ff5a34d995d2c2efef4caf, type: 3}
     - target: {fileID: 4669179193270801531, guid: d6a7a85973e0ac14b8e458fcff7fb3bb, type: 3}
       propertyPath: m_IsActive
       value: 1

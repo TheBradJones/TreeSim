@@ -8,6 +8,7 @@ public class TreeChopping : MonoBehaviour, IHittable
 {
     [Header("Chunks")]
     public TreeChunk[] chunks;
+    public Transform[] logSpawns;
 
     [Header("Fall Settings")]
     public int chunksToFall = 6;        // How many chunks must be removed in order for it to fall
@@ -18,6 +19,7 @@ public class TreeChopping : MonoBehaviour, IHittable
     public GameObject fullTreeMesh;     // Hide this on fall
     public GameObject stump;            // Always stays
     public GameObject upper;            // Detach on fall
+    public GameObject logPrefab;        // Spawns after tree fallen
 
     [Header("Adjacent Chunk Bleed")]
     public bool bleedToNeighbours = true;    // if true, hitting a chunk also damages its immediate neighbours slightly
@@ -219,9 +221,14 @@ public class TreeChopping : MonoBehaviour, IHittable
         if (fullTreeMesh != null) 
             fullTreeMesh.SetActive(false);
 
-        yield return new WaitForSeconds(5f);    // Wait for fall to complete
+        yield return new WaitForSeconds(3f);    // Wait for fall to complete
+
+        for (int i = 0; i < logSpawns.Length; i++)
+        {
+            Instantiate(logPrefab, logSpawns[i].transform.position, logSpawns[i].transform.rotation);
+        }
+
         Destroy(upper);
-        // Instantiate logs for pickup
 
         // Disable this script - tree is done
         this.enabled = false;

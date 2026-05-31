@@ -969,6 +969,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &5045318203271672640
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6146486662043822870}
+  m_Layer: 0
+  m_Name: LogSpawn 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6146486662043822870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5045318203271672640}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000003774895, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00442, z: 0}
+  m_LocalScale: {x: 0.0031063883, y: 0.0031063883, z: 0.0031063883}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5442478174707207873}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5084507118773999513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,12 +1086,17 @@ MonoBehaviour:
   - {fileID: 4141203093417439208}
   - {fileID: 6353332398584861644}
   - {fileID: 5203422938010269974}
+  logSpawns:
+  - {fileID: 6146486662043822870}
+  - {fileID: 4129759185190934848}
+  - {fileID: 1311633439142958875}
   chunksToFall: 6
   fallDuration: 2.5
   fallForce: 300
   fullTreeMesh: {fileID: 9159942854360974161}
   stump: {fileID: 2984700646540987235}
   upper: {fileID: 4669179193270801531}
+  logPrefab: {fileID: 0}
   bleedToNeighbours: 1
 --- !u!65 &5648318766528565598
 BoxCollider:
@@ -1083,6 +1119,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2471781, y: 1.5147249, z: 1.2259216}
   m_Center: {x: -0.079366684, y: 0.79171866, z: -0.08056259}
+--- !u!1 &5596533107478607437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1311633439142958875}
+  m_Layer: 0
+  m_Name: LogSpawn 3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1311633439142958875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5596533107478607437}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000003774895, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.01625, z: 0}
+  m_LocalScale: {x: 0.0031063883, y: 0.0031063883, z: 0.0031063883}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5442478174707207873}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6650894597587395361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,6 +1258,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7229222039937659220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4129759185190934848}
+  m_Layer: 0
+  m_Name: LogSpawn 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4129759185190934848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229222039937659220}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00000003774895, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00923, z: 0}
+  m_LocalScale: {x: 0.0031063883, y: 0.0031063883, z: 0.0031063883}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5442478174707207873}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7703937477671808187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1644,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 080e31bfdfebf33479e3926bc704b377, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6146486662043822870}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 080e31bfdfebf33479e3926bc704b377, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4129759185190934848}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 080e31bfdfebf33479e3926bc704b377, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1311633439142958875}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 080e31bfdfebf33479e3926bc704b377, type: 3}
 --- !u!1 &4669179193270801531 stripped
