@@ -29,6 +29,7 @@ public class TreeChopping : MonoBehaviour, IHittable
     // ---------------------------------------------------------------
 
     private Rigidbody rb;
+    private Rigidbody upperRb;
     private bool isFalling = false;
     private int removedCount = 0;
 
@@ -43,6 +44,12 @@ public class TreeChopping : MonoBehaviour, IHittable
         // keep tree static until it falls
         rb.isKinematic = true;
         rb.useGravity = false;
+
+        upperRb = upper.GetComponent<Rigidbody>();
+        if (upperRb == null)
+            upperRb = upper.AddComponent<Rigidbody>();
+        upperRb.isKinematic = true;
+        upperRb.useGravity = false;
     }
 
     // ---------------------------------------------------------------
@@ -198,9 +205,9 @@ public class TreeChopping : MonoBehaviour, IHittable
             if (trunkCol != null && upperCol != null)
                 Physics.IgnoreCollision(trunkCol, upperCol);
 
-            Rigidbody upperRb = upper.GetComponent<Rigidbody>();
             if (upperRb == null)
                 upperRb = upper.AddComponent<Rigidbody>();
+
             upperRb.isKinematic = false;
             upperRb.useGravity = true;
             upperRb.AddForce(fallDirection * (fallForce * 0.005f), ForceMode.Impulse);
