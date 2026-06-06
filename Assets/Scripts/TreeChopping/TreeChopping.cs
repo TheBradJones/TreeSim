@@ -6,20 +6,14 @@ using UnityEngine.tvOS;
 [RequireComponent(typeof(Rigidbody))]
 public class TreeChopping : MonoBehaviour, IHittable
 {
-    [Header("Chunks")]
-    public TreeChunk[] chunks;
-    public Transform[] logSpawns;
+    [Header("Tree Type")]
+    public TreeType treeType;
+    public TreeTypeDB treeDatabase;
 
     [Header("Fall Settings")]
     public int chunksToFall = 6;        // How many chunks must be removed in order for it to fall
     public float fallDuration = 2.5f;   // How long the fall takes in seconds
     public float fallForce = 50f;      // Force applied when trees fall
-
-    [Header("Tree Parts")]
-    public GameObject fullTreeMesh;     // Hide this on fall
-    public GameObject stump;            // Always stays
-    public GameObject upper;            // Detach on fall
-    public GameObject logPrefab;        // Spawns after tree fallen
 
     [Header("Adjacent Chunk Bleed")]
     public bool bleedToNeighbours = true;    // if true, hitting a chunk also damages its immediate neighbours slightly
@@ -29,9 +23,14 @@ public class TreeChopping : MonoBehaviour, IHittable
     // ---------------------------------------------------------------
 
     private Rigidbody rb;
-    private Rigidbody upperRb;
     private bool isFalling = false;
     private int removedCount = 0;
+
+    private GameObject spawnedUpper;
+    private GameObject spawnedStump;
+
+    private TreeChunk[] chunks;
+    private LogSpawn[] logSpawns;
 
     // ---------------------------------------------------------------
     //                      Unity Lifecycle
@@ -45,11 +44,43 @@ public class TreeChopping : MonoBehaviour, IHittable
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        upperRb = upper.GetComponent<Rigidbody>();
-        if (upperRb == null)
-            upperRb = upper.AddComponent<Rigidbody>();
-        upperRb.isKinematic = true;
-        upperRb.useGravity = false;
+        SpawnTree();
+    }
+
+    // ---------------------------------------------------------------
+    //                         Spawn Tree
+    // ---------------------------------------------------------------
+
+    private void SpawnTree()
+    {
+        TreeData data = GetData();
+        if (data == null) return;
+
+        // Spawn stump at tree base
+        if (data.stumpPrefab != null)
+            spawnedStump = Instantiate(data.stumpPrefab, transform.position, transform.rotation, transform);
+
+        // Spawn Upper
+        if (data.upperPrefab != null)
+        {
+            spawnedUpper = Instantiate(data.upperPrefab, transform.position, transform.rotation, transform);
+
+            Rigidbody upperRb = spawnedUpper.GetComponent<Rigidbody>();
+            if (upperRb != null)
+            {
+                upperRb.isKinematic = true;
+                upperRb.useGravity = false;
+            }
+
+            chunks = spawnedUpper.GetComponentsInChildren<TreeChunk>();
+            logSpawns = spawnedUpper.GetComponentsInChildren<LogSpawn>();
+
+            Debug.Log($"[TreeChopping] Spawned {treeType} tree. Chunks: {chunks.Length}, LogSpawns: {logSpawns.Length}");
+        }
+        else
+        {
+            Debug.LogWarning($"[TreeChopping] No upper prefab assigned for tree type: {treeType}");
+        }
     }
 
     // ---------------------------------------------------------------
@@ -178,6 +209,7 @@ public class TreeChopping : MonoBehaviour, IHittable
         isFalling = true;
         Debug.Log("[TreeChopping] Tree is falling!");
 
+        TreeData data = GetData();
         // Calculate fall direction - weighted average of removed chunk positions
         Vector3 fallDirection = CalculateFallDirection();
 
@@ -189,24 +221,25 @@ public class TreeChopping : MonoBehaviour, IHittable
         }
 
         // Detach stump BEFORE physics so it stays rooted
-        if (stump != null)
+        if (spawnedStump != null)
         {
-            stump.transform.SetParent(null);
-            stump.SetActive(true);
+            spawnedStump.transform.SetParent(null);
+            spawnedStump.SetActive(true);
         }
 
         // Detach upper and give it its own physics
-        if (upper != null)
+        if (spawnedUpper != null)
         {
-            upper.transform.SetParent(null);
+            spawnedUpper.transform.SetParent(null);
 
             Collider trunkCol = GetComponent<Collider>();
-            Collider upperCol = upper.GetComponent<Collider>();
+            Collider upperCol = spawnedUpper.GetComponent<Collider>();
             if (trunkCol != null && upperCol != null)
                 Physics.IgnoreCollision(trunkCol, upperCol);
 
+            Rigidbody upperRb = spawnedUpper.GetComponent<Rigidbody>();
             if (upperRb == null)
-                upperRb = upper.AddComponent<Rigidbody>();
+                upperRb = spawnedUpper.AddComponent<Rigidbody>();
 
             upperRb.isKinematic = false;
             upperRb.useGravity = true;
@@ -224,18 +257,25 @@ public class TreeChopping : MonoBehaviour, IHittable
         // Wait for fall to complete
         yield return new WaitForSeconds(fallDuration + 1f);
 
-        // Hide full tree
-        if (fullTreeMesh != null) 
-            fullTreeMesh.SetActive(false);
-
-        yield return new WaitForSeconds(1f);    // Wait for fall to complete
-
-        for (int i = 0; i < logSpawns.Length; i++)
+        // Spawn logs at each LogSpawn point
+        if (data != null && data.logPrefab != null)
         {
-            Instantiate(logPrefab, logSpawns[i].transform.position, logSpawns[i].transform.rotation);
+            foreach (LogSpawn spawn in logSpawns)
+            {
+                GameObject log = Instantiate(data.logPrefab, spawn.transform.position, spawn.transform.rotation);
+                WorldLog worldLog = log.GetComponent<WorldLog>();
+                if (worldLog != null)
+                    worldLog.treeData = data;
+            }
+
+        }
+        else
+        {
+            Debug.LogWarning($"[TreeChopping] No log prefab for tree type: {treeType}");
         }
 
-        Destroy(upper);
+        if (spawnedUpper != null)
+            Destroy(spawnedUpper);
 
         // Disable this script - tree is done
         this.enabled = false;
@@ -265,4 +305,19 @@ public class TreeChopping : MonoBehaviour, IHittable
         return dir.normalized;
 
     }
+
+    // ---------------------------------------------------------------
+    //                      Database Lookup
+    // ---------------------------------------------------------------
+
+    private TreeData GetData()
+    {
+        if (treeDatabase == null)
+        {
+            Debug.LogWarning("[TreeChopping] No TreeDatabase assigned!");
+            return null;
+        }
+        return treeDatabase.GetData(treeType);
+    }
+
 }

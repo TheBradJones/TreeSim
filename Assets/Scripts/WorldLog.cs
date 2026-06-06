@@ -10,6 +10,9 @@ public class WorldLog : MonoBehaviour
     [Header("State")]
     public bool isPlaced = false;   // Set to true once the log is locked into a build placement. prevenets pickup until toggled off
 
+    [Header("Log Type")]
+    public TreeData treeData;
+
     // ---------------------------------------------------------------
     //                      Public API
     // ---------------------------------------------------------------

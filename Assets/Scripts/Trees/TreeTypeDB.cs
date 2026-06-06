@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TreeDatabase", menuName ="Trees/TreeDatabase")]
+[CreateAssetMenu(fileName = "TreeDatabase", menuName = "Trees/TreeDatabase")]
 public class TreeTypeDB : ScriptableObject
 {
     public TreeData[] treeTypes;

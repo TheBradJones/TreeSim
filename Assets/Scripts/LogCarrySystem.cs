@@ -29,6 +29,7 @@ public class LogCarrySystem : MonoBehaviour
 
     private PlayerInventory inventory;
     private readonly List<GameObject> shoulderModels = new List<GameObject>();
+    private readonly List<TreeData> carriedLogData = new List<TreeData>();
     public int logCount = 0;
 
     private float holdTimer = 0f;
@@ -59,20 +60,15 @@ public class LogCarrySystem : MonoBehaviour
     public bool TryPickupLog(WorldLog worldLog)
     {
         if (worldLog == null) return false;
-        if (!CanCarryMore)
-        {
-            Debug.Log("[LogCarrySystem] Already at max logs.");
-            return false;
-        }
+        if (!CanCarryMore) return false;
 
-        // Remove the world object
+        TreeData data = worldLog.treeData;
         worldLog.OnPickedUp();
 
         logCount++;
-        AddShoulderModel();
+        carriedLogData.Add(data);
+        AddShoulderModel(data);
         inventory.SetHandModelsVisible(false);
-
-        Debug.Log($"[LogCarrySystem] Picked up log. Carrying {logCount}/{maxLogs}.");
         return true;
     }
 
@@ -142,14 +138,14 @@ public class LogCarrySystem : MonoBehaviour
     //                      Shoulder Models
     // ---------------------------------------------------------------
 
-    private void AddShoulderModel()
+    private void AddShoulderModel(TreeData data)
     {
-        if (logPrefab == null || shoulderPoint == null) return;
+        GameObject prefab = data != null ? data.logPrefab : logPrefab;
+        if (prefab == null || shoulderPoint == null) return;
 
         // Each additional log is offset slightly so they stack visibly
         Vector3 localOffset = logStackOffset * (shoulderModels.Count);
-        Debug.Log($"[LogCarrySystem] Shoulder offset for log {shoulderModels.Count}: {localOffset}");
-        GameObject model = Instantiate(logPrefab, shoulderPoint);
+        GameObject model = Instantiate(prefab, shoulderPoint);
         model.transform.localPosition = localOffset;
         model.transform.localRotation = Quaternion.identity;
 
@@ -174,6 +170,7 @@ public class LogCarrySystem : MonoBehaviour
         int last = shoulderModels.Count - 1;
         Destroy(shoulderModels[last]);
         shoulderModels.RemoveAt(last);
+        carriedLogData.RemoveAt(last);
     }
 
     // ---------------------------------------------------------------
@@ -182,18 +179,19 @@ public class LogCarrySystem : MonoBehaviour
 
     private void SpawnWorldLog()
     {
-        if (logPrefab == null) return;
+        TreeData data = carriedLogData.Count > 0 ? carriedLogData[carriedLogData.Count - 1] : null;
+        GameObject prefab = data != null ? data.logPrefab : logPrefab;
+        if (prefab == null) return;
 
         // Place slightly in front of the player at ground level
         Camera cam = Camera.main;
         Vector3 dropDir = cam != null ? cam.transform.forward : transform.forward;
         dropDir.y = 0f;
+        dropDir.Normalize();
         Vector3 spawnPos = transform.position + dropDir * 0.9f + Vector3.up * 0.3f;   // Small lift so rb doesnt clip on floor
+        Quaternion spawnRot = Quaternion.Euler(90, Random.Range(0, 360), 0); // Random rotation for indifference
 
-        // Random yaw so dropped logs dont all look identical
-        Quaternion spawnRot = Quaternion.Euler(0f, Random.Range(0, 360), 0f);
-
-        GameObject dropped = Instantiate(logPrefab, spawnPos, spawnRot);
+        GameObject dropped = Instantiate(prefab, spawnPos, spawnRot);
 
         // Ensure it has physics so it settles on the ground
         Rigidbody rb = dropped.GetComponent<Rigidbody>();
@@ -208,6 +206,7 @@ public class LogCarrySystem : MonoBehaviour
             wl = dropped.AddComponent<WorldLog>();
         wl.enabled = true;
         wl.isPlaced = false;
+        wl.treeData = data;
     }
 
 }

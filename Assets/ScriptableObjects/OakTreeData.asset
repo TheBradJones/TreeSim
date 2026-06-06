@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: OakTreeData
   m_EditorClassIdentifier: 
   treeType: 0
+  upperPrefab: {fileID: 4628177033246959378, guid: 64f0bc45b258d8e49a5e59330521bce2, type: 3}
+  stumpPrefab: {fileID: 3930180530310288706, guid: 3749fac6f8c647845acee266baf5602b, type: 3}
   logPrefab: {fileID: 1684777591488124644, guid: 09677c0263ff5a34d995d2c2efef4caf, type: 3}
-  stump: {fileID: 3930180530310288706, guid: 3749fac6f8c647845acee266baf5602b, type: 3}
-  upper: {fileID: 4628177033246959378, guid: 64f0bc45b258d8e49a5e59330521bce2, type: 3}

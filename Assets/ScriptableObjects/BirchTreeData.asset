@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BirchTreeData
   m_EditorClassIdentifier: 
   treeType: 2
+  upperPrefab: {fileID: 4628177033246959378, guid: 33811d2880ef2ec4a946ceeec301ee90, type: 3}
+  stumpPrefab: {fileID: 3930180530310288706, guid: 16553e8a253360e4d8045c0e3282d30b, type: 3}
   logPrefab: {fileID: 1684777591488124644, guid: 8bd24a667b0108f4aba397eb9062c481, type: 3}
-  stump: {fileID: 3930180530310288706, guid: 16553e8a253360e4d8045c0e3282d30b, type: 3}
-  upper: {fileID: 4628177033246959378, guid: 33811d2880ef2ec4a946ceeec301ee90, type: 3}
