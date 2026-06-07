@@ -48,7 +48,7 @@ public class TreeChopping : MonoBehaviour, IHittable
     }
 
     // ---------------------------------------------------------------
-    //                         Spawn Tree
+    //                          Spawn Tree
     // ---------------------------------------------------------------
 
     private void SpawnTree()
@@ -56,11 +56,11 @@ public class TreeChopping : MonoBehaviour, IHittable
         TreeData data = GetData();
         if (data == null) return;
 
-        // Spawn stump at tree base
+        // Spawn stump as tree base
         if (data.stumpPrefab != null)
             spawnedStump = Instantiate(data.stumpPrefab, transform.position, transform.rotation, transform);
 
-        // Spawn Upper
+        // Spawn Upper with chunks and logSpawns
         if (data.upperPrefab != null)
         {
             spawnedUpper = Instantiate(data.upperPrefab, transform.position, transform.rotation, transform);
@@ -74,8 +74,6 @@ public class TreeChopping : MonoBehaviour, IHittable
 
             chunks = spawnedUpper.GetComponentsInChildren<TreeChunk>();
             logSpawns = spawnedUpper.GetComponentsInChildren<LogSpawn>();
-
-            Debug.Log($"[TreeChopping] Spawned {treeType} tree. Chunks: {chunks.Length}, LogSpawns: {logSpawns.Length}");
         }
         else
         {

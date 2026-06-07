@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             verticalVelocity = -2f;
 
         // Basic Jump Movement
-        verticalVelocity +=  gravity * Time.deltaTime;
+        verticalVelocity += gravity * Time.deltaTime;
         characterController.Move(new Vector3(0, verticalVelocity, 0) * Time.deltaTime);
     }
 
@@ -48,16 +48,17 @@ public class PlayerMovement : MonoBehaviour
         rotY += rotationVector.x * RotationSpeed * Time.deltaTime;
         rotX -= rotationVector.y * RotationSpeed * Time.deltaTime;
 
-        Vector2 rotation = new Vector2(Mathf.Clamp(rotX, -85, 85), rotY);   // Clamps up/down rotation
+        Vector2 rotation = new Vector2(Mathf.Clamp(rotX, -85f, 85f), rotY);
 
         playerCamera.transform.localRotation = Quaternion.Euler(rotation.x, rotation.y, 0);
     }
 
     public void Jump()
-    {   
+    {
         if (characterController.isGrounded)
         {
             verticalVelocity = jumpForce;
         }
     }
+
 }
