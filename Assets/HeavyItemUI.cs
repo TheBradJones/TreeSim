@@ -5,8 +5,12 @@ using TMPro;
 public class HeavyItemUI : MonoBehaviour
 {
     [Header("References")]
-    public Image logIcon;
-    public TMP_Text logCount;
+    public Image icon;
+    public TMP_Text count;
+
+    [Header("Sprites")]
+    public Sprite logIcon;
+    public Sprite stoneIcon;
 
     private LogCarrySystem logCarry;
 
@@ -21,9 +25,15 @@ public class HeavyItemUI : MonoBehaviour
 
         bool isCarrying = logCarry.IsCarrying;
 
-        logIcon.gameObject.SetActive(isCarrying);
+        
 
         if (isCarrying)
-            logCount.text = logCarry.logCount.ToString();
+        {
+            // Check if carrying log or stone   then   icon.sprite = logIcon : stoneIcon
+            count.gameObject.SetActive(true);
+            count.text = logCarry.logCount.ToString();
+        }
+        else
+            count.gameObject.SetActive(false);
     }
 }
