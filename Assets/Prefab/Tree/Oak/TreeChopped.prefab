@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeType: 0
-  treeDatabase: {fileID: 0}
+  treeDatabase: {fileID: 11400000, guid: 89bbd1dd026b45542b9b03a0a5c83778, type: 2}
   chunksToFall: 6
   fallDuration: 2.5
   fallForce: 300

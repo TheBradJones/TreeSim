@@ -18,15 +18,16 @@ public class PlayerInteraction : MonoBehaviour
     // ---------------------------------------------------------------
 
     private PlayerInventory inventory;
-    private LogCarrySystem logCarry;
+    private ResourceCarrySystem carrySystem;
 
     private StorageSlot lookedAtStorage;
     private WorldLog lookedAtLog;
+    private WorldRock lookedAtRock;
 
     private void Awake()
     {
         inventory = GetComponent<PlayerInventory>();
-        logCarry = GetComponent<LogCarrySystem>();
+        carrySystem = GetComponent<ResourceCarrySystem>();
 
         if (playerCamera == null)
             playerCamera = Camera.main;
@@ -46,19 +47,22 @@ public class PlayerInteraction : MonoBehaviour
     {
         lookedAtStorage = null;
         lookedAtLog = null;
+        lookedAtRock = null;
 
         if (playerCamera == null) return;
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-
         if (!Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayers)) return;
 
-        // Check for a storage slot (tool rack)
         lookedAtStorage = hit.collider.GetComponentInParent<StorageSlot>();
+
+        // Check for a storage slot (tool rack)
+        if (lookedAtStorage == null)
+            lookedAtLog = hit.collider.GetComponentInParent<WorldLog>();
 
         // Check for a world log (only if no storage slot found)
         if (lookedAtStorage == null)
-            lookedAtLog = hit.collider.GetComponentInParent<WorldLog>();
+            lookedAtRock = hit.collider.GetComponentInParent<WorldRock>();
     }
 
     // ---------------------------------------------------------------
@@ -70,13 +74,20 @@ public class PlayerInteraction : MonoBehaviour
         if (Input.GetKeyDown(interactKey))
         {
             // Priority 1: pickup a log
-            if (lookedAtLog != null && lookedAtLog.IsPickupable && logCarry != null)
+            if (lookedAtLog != null && lookedAtLog.IsPickupable && carrySystem != null)
             {
-                logCarry.TryPickupLog(lookedAtLog);
+                carrySystem.TryPickupLog(lookedAtLog);
                 return;
             }
 
-            // Priority 2: interact with a tool storage slot
+            // Priority 2: pickup a log
+            if (lookedAtRock != null && lookedAtRock.IsPickupable && carrySystem != null)
+            {
+                carrySystem.TryPickupRock(lookedAtRock);
+                return;
+            }
+
+            // Priority 3: interact with a tool storage slot
             if (lookedAtStorage != null)
             {
                 if (!lookedAtStorage.HasItem)
@@ -98,7 +109,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
 
                     // Block while carrying logs
-                    if (logCarry != null && logCarry.IsCarrying)
+                    if (carrySystem != null && carrySystem.IsCarrying)
                     {
                         Debug.Log("[PlayerInteraction] Put down your logs before returning tools.");
                         return;
@@ -109,7 +120,7 @@ public class PlayerInteraction : MonoBehaviour
                 }
                     
                 // Storage slot has an item - pick it up
-                if (logCarry != null && logCarry.IsCarrying)
+                if (carrySystem != null && carrySystem.IsCarrying)
                 {
                     Debug.Log("[PlayerInteraction] Put down your logs before Picking up tools.");
                     return;

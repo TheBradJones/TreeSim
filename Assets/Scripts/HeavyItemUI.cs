@@ -12,28 +12,33 @@ public class HeavyItemUI : MonoBehaviour
     public Sprite logIcon;
     public Sprite stoneIcon;
 
-    private LogCarrySystem logCarry;
+    private ResourceCarrySystem rcs;
 
     private void Awake()
     {
-        logCarry = FindFirstObjectByType<LogCarrySystem>();
+        rcs = FindFirstObjectByType<ResourceCarrySystem>();
     }
 
     private void Update()
     {
-        if (logCarry == null) return;
+        if (rcs == null) return;
 
-        bool isCarrying = logCarry.IsCarrying;
+        bool isCarrying = rcs.IsCarrying;
 
-        
 
         if (isCarrying)
         {
-            // Check if carrying log or stone   then   icon.sprite = logIcon : stoneIcon
+            icon.gameObject.SetActive(true);
             count.gameObject.SetActive(true);
-            count.text = logCarry.logCount.ToString();
+
+            icon.sprite = rcs.carryType == CarryType.Rocks ? stoneIcon : logIcon;   // Switch between rock and log icon 
+
+            count.text = rcs.resourceCount.ToString();
         }
         else
+        {
+            icon.gameObject.SetActive(false);
             count.gameObject.SetActive(false);
+        }
     }
 }

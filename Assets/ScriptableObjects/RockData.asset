@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159157da601022941a6e0028aed0fe16, type: 3}
+  m_Name: RockData
+  m_EditorClassIdentifier: 
+  stage1: {fileID: 1612525157589599570, guid: 8b3f341ce5ebcbe449eafac58a639b76, type: 3}
+  stage2: {fileID: 756891592873523990, guid: 9634f72d53e7b9f428cb95d44c610f42, type: 3}
+  stage3: {fileID: 1536332364802074433, guid: fad99c933209294499d3897f37b7e1bd, type: 3}
+  stage4: {fileID: 2306506048049340095, guid: 4483797fadbd297478841f19c0b2d317, type: 3}
+  rockItemPrefab: {fileID: 7303063965188994325, guid: 53c5fc5bd895d0b4c8c53d4f08a8e6ca, type: 3}
+  rocksToSpawn: 3

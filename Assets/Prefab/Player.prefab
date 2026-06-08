@@ -252,7 +252,6 @@ MonoBehaviour:
     m_Bits: 4294967295
   playerCamera: {fileID: 8630865388227275348}
   interactKey: 101
-  returnKey: 114
 --- !u!114 &1061002444724702023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,11 +323,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLogs: 3
+  maxRocks: 5
   shoulderPoint: {fileID: 1120073145404174371}
-  logStackOffset: {x: 0, y: 0.08, z: 0}
+  logStackOffset: {x: 0, y: 0, z: -0.5}
+  rockStackOffset: {x: 0, y: 1, z: 0}
   dropOneKey: 103
   holdDropTime: 1
   logPrefab: {fileID: 1684777591488124644, guid: 09677c0263ff5a34d995d2c2efef4caf, type: 3}
+  rockPrefab: {fileID: 7303063965188994325, guid: 53c5fc5bd895d0b4c8c53d4f08a8e6ca, type: 3}
+  carryType: 0
+  resourceCount: 0
 --- !u!1 &8295177469657950755
 GameObject:
   m_ObjectHideFlags: 0

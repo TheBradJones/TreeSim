@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1659321720519959231}
   - component: {fileID: 1658251605250309853}
   - component: {fileID: 4089323372712412941}
+  - component: {fileID: 6740599619688015549}
   m_Layer: 0
   m_Name: Rock_Stage-1
   m_TagString: Untagged
@@ -2948,7 +2949,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 27356
+  m_VersionIndex: 27359
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3052,3 +3053,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &6740599619688015549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612525157589599570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35cf73dd3d70e344a21f024180e423d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockData: {fileID: 11400000, guid: 1d6c156e51721cc42bf471fd73a268de, type: 2}

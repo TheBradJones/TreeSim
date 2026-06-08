@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public enum CarryType { None, Logs, Rocks }
+
 [RequireComponent(typeof(PlayerInventory))]
-public class LogCarrySystem : MonoBehaviour
+public class ResourceCarrySystem : MonoBehaviour
 {
     // ---------------------------------------------------------------
     //                          Inspector
@@ -10,34 +12,40 @@ public class LogCarrySystem : MonoBehaviour
 
     [Header("Carry Settings")]
     public int maxLogs = 3;
+    public int maxRocks = 5;
 
     [Header("Shoulder Mount")]
     public Transform shoulderPoint; // Logs are parented here visually
-
     public Vector3 logStackOffset = new Vector3(0, 1, 0);   // Local space offset applied per extra log so they dont all overlap on the shoulder
+    public Vector3 rockStackOffset = new Vector3(0, 1, 0);   // Local space offset applied per extra Stone so they dont all overlap on the shoulder
 
     [Header("Drop Settings")]
     public KeyCode dropOneKey = KeyCode.G;
-    public float holdDropTime = 1f;   // Seconds to hold G before dropping all
+    public float holdDropTime = 0.5f;   // Seconds to hold G before dropping all
 
-    [Header("Log Prefab")]
+    [Header("Prefabs")]
     public GameObject logPrefab;    // Prefab spawned in the world a log is dropped. must have a rb and worldlog component
+    public GameObject rockPrefab;
 
     // ---------------------------------------------------------------
     //                          Runtime
     // ---------------------------------------------------------------
 
     private PlayerInventory inventory;
+
     private readonly List<GameObject> shoulderModels = new List<GameObject>();
     private readonly List<TreeData> carriedLogData = new List<TreeData>();
-    public int logCount = 0;
+    private readonly List<RockData> carriedRockData = new List<RockData>();
+
+    public CarryType carryType = CarryType.None;
+    public int resourceCount = 0;
 
     private float holdTimer = 0f;
     private bool holdFired = false;
 
-    public int LogCount => logCount;
-    public bool IsCarrying => logCount > 0;
-    public bool CanCarryMore => logCount < maxLogs;
+    public int ResourceCount => resourceCount;
+    public bool IsCarrying => resourceCount > 0;
+    public bool CanCarryMore => resourceCount < (carryType == CarryType.Rocks ? maxRocks : maxLogs);
 
     // ---------------------------------------------------------------
     //                      Unity Lifecycle
@@ -54,20 +62,65 @@ public class LogCarrySystem : MonoBehaviour
     }
 
     // ---------------------------------------------------------------
-    //                      Public API
+    //                      Pickup Resources
     // ---------------------------------------------------------------
 
     public bool TryPickupLog(WorldLog worldLog)
     {
         if (worldLog == null) return false;
-        if (!CanCarryMore) return false;
+
+        if (carryType == CarryType.Rocks)
+        {
+            Debug.Log("[ResourceCarrySystem] Put down your rocks before picking up logs.");
+            return false;
+        }
+
+        if (carryType == CarryType.None)
+            carryType = CarryType.Logs;
+
+        if (resourceCount >= maxLogs)
+        {
+            Debug.Log("[ResourceCarrySystem] Already carrying max logs");
+            return false;
+        }
 
         TreeData data = worldLog.treeData;
         worldLog.OnPickedUp();
 
-        logCount++;
+        resourceCount++;
         carriedLogData.Add(data);
-        AddShoulderModel(data);
+        AddShoulderModel(data != null ? data.logPrefab : logPrefab, logStackOffset);
+
+        inventory.SetHandModelsVisible(false);
+        return true;
+    }
+
+    public bool TryPickupRock(WorldRock worldRock)
+    {
+        if (worldRock == null) return false;
+
+        if (carryType == CarryType.Logs)
+        {
+            Debug.Log("[ResourceCarrySystem] Put down your logs before picking up rocks.");
+            return false;
+        }
+
+        if (carryType == CarryType.None)
+            carryType = CarryType.Rocks;
+
+        if (resourceCount >= maxRocks)
+        {
+            Debug.Log("[ResourceCarrySystem] Already carrying max rocks");
+            return false;
+        }
+
+        RockData data = worldRock.rockData;
+        worldRock.OnPickedUp();
+
+        resourceCount++;
+        carriedRockData.Add(data);
+        AddShoulderModel(data != null ? data.rockItemPrefab : rockPrefab, rockStackOffset);
+
         inventory.SetHandModelsVisible(false);
         return true;
     }
@@ -80,22 +133,25 @@ public class LogCarrySystem : MonoBehaviour
     // Drop one log in front of the player 
     public void DropOne()
     {
-        if (logCount <= 0) return;
+        if (resourceCount <= 0) return;
 
-        SpawnWorldLog();
+        SpawnWorldResource();
         RemoveShoulderModel();
-        logCount--;
+        resourceCount--;
 
-        if (!IsCarrying)
+        if (resourceCount <= 0)
+        {
+            carryType = CarryType.None;
             inventory.SetHandModelsVisible(true);
+        }
 
-        Debug.Log($"[LogCarrySystem] Dropped one log. Carrying {logCount}/{maxLogs}.");
+        Debug.Log($"[LogCarrySystem] Dropped one log. Carrying {resourceCount}.");
     }
 
     // Drop every carried log
     public void DropAll()
     {
-        while (logCount > 0)
+        while (resourceCount > 0)
             DropOne();
     }
 
@@ -138,13 +194,12 @@ public class LogCarrySystem : MonoBehaviour
     //                      Shoulder Models
     // ---------------------------------------------------------------
 
-    private void AddShoulderModel(TreeData data)
+    private void AddShoulderModel(GameObject prefab, Vector3 stackOffset)
     {
-        GameObject prefab = data != null ? data.logPrefab : logPrefab;
         if (prefab == null || shoulderPoint == null) return;
 
         // Each additional log is offset slightly so they stack visibly
-        Vector3 localOffset = logStackOffset * (shoulderModels.Count);
+        Vector3 localOffset = stackOffset * (shoulderModels.Count);
         GameObject model = Instantiate(prefab, shoulderPoint);
         model.transform.localPosition = localOffset;
         model.transform.localRotation = Quaternion.identity;
@@ -160,6 +215,8 @@ public class LogCarrySystem : MonoBehaviour
         // Disable WorldLog on the shoulder model so it cant be interacted with directly
         WorldLog wl = model.GetComponent<WorldLog>();
         if (wl != null) wl.enabled = false;
+        WorldRock wr = model.GetComponent<WorldRock>();
+        if (wr != null) wr.enabled = false;
 
         shoulderModels.Add(model);
     }
@@ -170,43 +227,70 @@ public class LogCarrySystem : MonoBehaviour
         int last = shoulderModels.Count - 1;
         Destroy(shoulderModels[last]);
         shoulderModels.RemoveAt(last);
-        carriedLogData.RemoveAt(last);
+
+        // Also remove from data lists
+        if (carryType == CarryType.Logs && carriedLogData.Count > 0)
+            carriedLogData.RemoveAt(carriedLogData.Count - 1);
+        else if (carryType == CarryType.Rocks && carriedRockData.Count > 0)
+            carriedRockData.RemoveAt(carriedRockData.Count - 1);
     }
 
     // ---------------------------------------------------------------
     //                      Spawn Dropped Log
     // ---------------------------------------------------------------
 
-    private void SpawnWorldLog()
+    private void SpawnWorldResource()
     {
-        TreeData data = carriedLogData.Count > 0 ? carriedLogData[carriedLogData.Count - 1] : null;
-        GameObject prefab = data != null ? data.logPrefab : logPrefab;
-        if (prefab == null) return;
-
-        // Place slightly in front of the player at ground level
         Camera cam = Camera.main;
         Vector3 dropDir = cam != null ? cam.transform.forward : transform.forward;
         dropDir.y = 0f;
         dropDir.Normalize();
-        Vector3 spawnPos = transform.position + dropDir * 0.9f + Vector3.up * 0.3f;   // Small lift so rb doesnt clip on floor
-        Quaternion spawnRot = Quaternion.Euler(90, Random.Range(0, 360), 0); // Random rotation for indifference
+        Vector3 spawnPos = transform.position + dropDir * 0.9f + Vector3.up * 0.3f;
+        Quaternion spawnRot = Quaternion.Euler(0f, Random.Range(0, 360), 0);
 
-        GameObject dropped = Instantiate(prefab, spawnPos, spawnRot);
+        if (carryType == CarryType.Logs)
+        {
+            TreeData data = carriedLogData.Count > 0 ? carriedLogData[carriedLogData.Count - 1] : null;
+            GameObject prefab = data != null ? data.logPrefab : logPrefab;
+            if (prefab == null) return;
 
-        // Ensure it has physics so it settles on the ground
-        Rigidbody rb = dropped.GetComponent<Rigidbody>();
-        if (rb == null)
-            rb = dropped.AddComponent<Rigidbody>();
+            GameObject dropped = Instantiate(prefab, spawnPos, spawnRot);
+            SetupRigidbody(dropped);
+
+            // Ensure it has WorldLog so the player can pick it back up
+            WorldLog wl = dropped.GetComponent<WorldLog>();
+            if (wl == null)
+                wl = dropped.AddComponent<WorldLog>();
+            wl.enabled = true;
+            wl.isPlaced = false;
+            wl.treeData = data;
+        }
+        else if (carryType == CarryType.Rocks)
+        {
+            RockData data = carriedRockData.Count > 0 ? carriedRockData[carriedRockData.Count - 1] : null;
+            GameObject prefab = data != null ? data.rockItemPrefab : rockPrefab;
+            if (prefab == null) return;
+
+            GameObject dropped = Instantiate(prefab, spawnPos, spawnRot);
+            SetupRigidbody(dropped);
+
+            // Ensure it has WorldLog so the player can pick it back up
+            WorldRock wr = dropped.GetComponent<WorldRock>();
+            if (wr == null)
+                wr = dropped.AddComponent<WorldRock>();
+            wr.enabled = true;
+            wr.isPlaced = false;
+            wr.rockData = data;
+        }
+
+    }
+
+    private void SetupRigidbody(GameObject obj)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb == null) rb = obj.AddComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.useGravity = true;
-
-        // Ensure it has WorldLog so the player can pick it back up
-        WorldLog wl = dropped.GetComponent<WorldLog>();
-        if (wl == null)
-            wl = dropped.AddComponent<WorldLog>();
-        wl.enabled = true;
-        wl.isPlaced = false;
-        wl.treeData = data;
     }
 
 }
