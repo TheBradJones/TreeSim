@@ -8,6 +8,7 @@ public class WorldRock : MonoBehaviour
 
     [Header("Data")]
     public bool isPlaced = false;
+    public bool isStored = false;
 
     // ---------------------------------------------------------------
     //                      Public API

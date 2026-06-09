@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 668494196165082187}
   m_Layer: 6
   m_Name: BirchLog
-  m_TagString: Untagged
+  m_TagString: Log
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1339,6 +1339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
+  isStored: 0
+  treeData: {fileID: 0}
 --- !u!136 &668494196165082187
 CapsuleCollider:
   m_ObjectHideFlags: 0
