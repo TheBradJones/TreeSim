@@ -17,7 +17,7 @@ public class ResourceCarrySystem : MonoBehaviour
     [Header("Shoulder Mount")]
     public Transform shoulderPoint; // Logs are parented here visually
     public Vector3 logStackOffset = new Vector3(0, 1, 0);   // Local space offset applied per extra log so they dont all overlap on the shoulder
-    public Vector3 rockStackOffset = new Vector3(0, 1, 0);   // Local space offset applied per extra Stone so they dont all overlap on the shoulder
+    public Vector3 rockStackOffset = new Vector3(0, 1000, 0);   // Local space offset applied per extra Stone so they dont all overlap on the shoulder
 
     [Header("Drop Settings")]
     public KeyCode dropOneKey = KeyCode.G;
@@ -202,7 +202,10 @@ public class ResourceCarrySystem : MonoBehaviour
         Vector3 localOffset = stackOffset * (shoulderModels.Count);
         GameObject model = Instantiate(prefab, shoulderPoint);
         model.transform.localPosition = localOffset;
-        model.transform.localRotation = Quaternion.identity;
+        if (carryType == CarryType.Logs)
+            model.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        else
+            model.transform.localRotation = Quaternion.Euler(0, 90, 0);
 
         // Disable physics on the shoulder model - it just rides with the player
         Rigidbody rb = model.GetComponent<Rigidbody>();

@@ -4374,7 +4374,7 @@ MonoBehaviour:
   icon: {fileID: 662666150}
   count: {fileID: 1159805590}
   logIcon: {fileID: 21300000, guid: 979c5b572b2315f4bbd3bd804ff6c6a8, type: 3}
-  stoneIcon: {fileID: 0}
+  stoneIcon: {fileID: 21300000, guid: 833438dff19776747948383bf8176b1b, type: 3}
 --- !u!1 &1513958800
 GameObject:
   m_ObjectHideFlags: 0
@@ -6649,6 +6649,14 @@ PrefabInstance:
       propertyPath: onStaminaChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 178545130}
+    - target: {fileID: 1120073145404174371, guid: 3adc2d98b38ad354eab198d1e94ad1b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1120073145404174371, guid: 3adc2d98b38ad354eab198d1e94ad1b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3316007418532401506, guid: 3adc2d98b38ad354eab198d1e94ad1b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.082

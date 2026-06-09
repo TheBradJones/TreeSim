@@ -31,13 +31,31 @@ public class RockNode : MonoBehaviour, IHittable
         if (tool.toolName != "Pickaxe") return;
 
         currentStage++;
-        Debug.Log("[RockNode] Hit! Stage {currentStage}/5");
+        Debug.Log($"[RockNode] Hit! Stage {currentStage}/5");
 
         if (currentStage >= 5)
         {
             DestroyNode();
             return;
         }
+
+        SwapToStage(currentStage);
+    }
+
+    private void SwapToStage(int stage)
+    {
+        GameObject nextPrefab = GetStageMesh(stage);
+        if (nextPrefab == null) return;
+
+        GameObject next = Instantiate(nextPrefab, transform.position, transform.rotation);
+
+        RockNode nextNode = next.GetComponent<RockNode>();
+        if (nextNode == null)
+            nextNode = next.AddComponent<RockNode>();
+        nextNode.rockData = rockData;
+        nextNode.currentStage = stage;
+
+        Destroy(gameObject);
     }
 
     // ---------------------------------------------------------------

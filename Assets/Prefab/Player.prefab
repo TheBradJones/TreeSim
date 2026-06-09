@@ -325,8 +325,8 @@ MonoBehaviour:
   maxLogs: 3
   maxRocks: 5
   shoulderPoint: {fileID: 1120073145404174371}
-  logStackOffset: {x: 0, y: 0, z: -0.5}
-  rockStackOffset: {x: 0, y: 1, z: 0}
+  logStackOffset: {x: 0, y: 0.5, z: 0}
+  rockStackOffset: {x: 0, y: 0.5, z: 0}
   dropOneKey: 103
   holdDropTime: 1
   logPrefab: {fileID: 1684777591488124644, guid: 09677c0263ff5a34d995d2c2efef4caf, type: 3}
@@ -357,7 +357,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8295177469657950755}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.846, y: 0.28100002, z: 0.163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

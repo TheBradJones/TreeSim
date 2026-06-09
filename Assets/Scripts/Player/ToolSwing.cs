@@ -83,7 +83,6 @@ public class ToolSwing : MonoBehaviour
         }
 
         if (!stamina.TryConsume()) return;
-
         BeginSwing();
     }
 
