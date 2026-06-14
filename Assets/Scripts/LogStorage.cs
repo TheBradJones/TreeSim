@@ -7,14 +7,12 @@ public class LogStorage : MonoBehaviour
     public Transform[] logPositions;
     public int slot = 0;
 
-    private bool doOnce = true;
     private WorldLog wl;
     
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Log")
         {
-            doOnce = false;
             Debug.Log($"[LogStorage] Log detected!  slot: {slot}");
 
             AddLogToStorage(other.gameObject);

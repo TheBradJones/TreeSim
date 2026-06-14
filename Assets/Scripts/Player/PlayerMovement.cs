@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float rotX;
     private float rotY;
     private float verticalVelocity;
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

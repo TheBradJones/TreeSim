@@ -6,7 +6,12 @@ public class InputHandler : MonoBehaviour
     public PlayerMovement player;
     private InputAction moveAction, lookAction, jumpAction, dropAction;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     void Start()
     {
         // Get Input Actions
@@ -16,13 +21,13 @@ public class InputHandler : MonoBehaviour
 
         jumpAction.performed += OnJumpPerformed;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (Cursor.lockState != CursorLockMode.Locked)
+            Cursor.lockState = CursorLockMode.Locked;
+
         // Read values from input actions
         Vector2 movementVector = moveAction.ReadValue<Vector2>();
         player.Move(movementVector);

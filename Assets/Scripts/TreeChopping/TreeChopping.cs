@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.tvOS;
 
 [RequireComponent(typeof(Rigidbody))]
 public class TreeChopping : MonoBehaviour, IHittable
@@ -88,8 +87,14 @@ public class TreeChopping : MonoBehaviour, IHittable
     public void OnHit(Vector3 hitPoint, Vector3 hitNormal, ToolItem tool)
     {
         if (isFalling) return;
-
         if (tool == null) return;
+
+        // Prevent other tools from chopping trees
+        if (tool.toolName != "Axe")
+        {
+            Debug.Log("[TreeChopping] Tool found is NOT an axe");
+            return;
+        }
 
         TreeChunk nearest = GetNearestChunk(hitPoint);
         if (nearest == null) return;

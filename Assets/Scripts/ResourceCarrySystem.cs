@@ -120,10 +120,6 @@ public class ResourceCarrySystem : MonoBehaviour
         resourceCount++;
         carriedRockData.Add(data);
 
-        LogStorage logStorage = logPrefab.transform.parent.GetComponent<LogStorage>();
-        if (logStorage != null)
-            logStorage.RemoveLogFromStorage();
-
         AddShoulderModel(data != null ? data.rockItemPrefab : rockPrefab, rockStackOffset);
 
         inventory.SetHandModelsVisible(false);

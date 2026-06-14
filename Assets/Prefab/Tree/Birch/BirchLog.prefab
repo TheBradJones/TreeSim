@@ -1340,7 +1340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlaced: 0
   isStored: 0
-  treeData: {fileID: 0}
+  treeData: {fileID: 11400000, guid: 7a8c877445752ce458d71c481df81c9b, type: 2}
 --- !u!136 &668494196165082187
 CapsuleCollider:
   m_ObjectHideFlags: 0

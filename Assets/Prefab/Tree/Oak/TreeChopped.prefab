@@ -75,10 +75,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeType: 0
   treeDatabase: {fileID: 11400000, guid: 89bbd1dd026b45542b9b03a0a5c83778, type: 2}
-  chunksToFall: 6
+  chunksToFall: 5
   fallDuration: 2.5
   fallForce: 300
-  bleedToNeighbours: 1
+  bleedToNeighbours: 0
 --- !u!65 &5648318766528565598
 BoxCollider:
   m_ObjectHideFlags: 0
