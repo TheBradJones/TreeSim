@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class TreeChopping : MonoBehaviour, IHittable
 {
+    [Header("Easter Egg")]
+    public GameObject jibblesPrefab;
+
     [Header("Tree Type")]
     public TreeType treeType;
     public TreeTypeDB treeDatabase;
@@ -257,6 +260,19 @@ public class TreeChopping : MonoBehaviour, IHittable
         Vector3 forcePoint = transform.position + Vector3.up * 4;
         rb.AddForceAtPosition(fallDirection * fallForce, forcePoint, ForceMode.Impulse);
 
+        // EASTER EGG: Chance for Jibbles to appear when tree falls
+        if (Random.value < 1f)
+        {
+            if (jibblesPrefab != null)
+            {
+                jibblesPrefab = Instantiate(jibblesPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
+                Rigidbody jibblesRb = jibblesPrefab.GetComponent<Rigidbody>();
+                if (jibblesRb != null)
+                    jibblesRb.AddForce(fallDirection * 5f, ForceMode.Impulse);
+            }
+        }
+
+
         // Wait for fall to complete
         yield return new WaitForSeconds(fallDuration + 1f);
 
@@ -279,6 +295,15 @@ public class TreeChopping : MonoBehaviour, IHittable
 
         if (spawnedUpper != null)
             Destroy(spawnedUpper);
+
+
+        jibblesPrefab.transform.localRotation = Quaternion.Euler(0, 45, 0);
+        yield return new WaitForSeconds(1f);
+        jibblesPrefab.transform.localRotation = Quaternion.Euler(0, -45, 0);
+        yield return new WaitForSeconds(1f);
+        jibblesPrefab.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        yield return new WaitForSeconds(1f);
+        Destroy(jibblesPrefab);
 
         // Disable this script - tree is done
         this.enabled = false;
